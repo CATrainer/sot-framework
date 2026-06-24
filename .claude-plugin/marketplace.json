@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "sot-framework-marketplace",
+  "owner": {
+    "name": "CATrainer"
+  },
+  "metadata": {
+    "description": "The Source-of-Truth product framework and its sot-build skill.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "sot-framework",
+      "source": "./",
+      "description": "Spec-driven build framework: repo-as-bus protocol, self-healing docs, and the sot-build skill for Claude Code.",
+      "category": "workflow"
+    }
+  ]
+}

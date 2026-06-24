@@ -1,0 +1,11 @@
+{
+  "name": "sot-framework",
+  "version": "1.0.0",
+  "description": "Source-of-Truth product framework: enforces the repo-as-bus protocol, anti-bloat self-healing docs, and spec-driven builds between Claude chat and Claude Code.",
+  "keywords": ["spec-driven", "source-of-truth", "product", "workflow", "documentation"],
+  "author": {
+    "name": "CATrainer"
+  },
+  "repository": "https://github.com/CATrainer/sot-framework",
+  "license": "MIT"
+}
