@@ -44,8 +44,6 @@ format). Each carries its own local `## Decisions` block.
 | Area | File | Status | One-line purpose |
 |------|------|--------|------------------|
 | Reminders | `product/reminders.md` | Built | Scheduling + notification engine for watering reminders |
-| Plant library | `product/plant-library.md` | Spec'd | Catalogue of plants with care metadata |
-| Onboarding | `product/onboarding.md` | Deferred | First-run flow (deferred until library is real) |
 
 ## business/ — what constrains the build
 
@@ -56,7 +54,6 @@ imposes. Same local `## Decisions` block.
 | Area | File | One-line purpose |
 |------|------|------------------|
 | Pricing | `business/pricing.md` | What's free vs paid, gating logic, deferred terms |
-| Distribution | `business/distribution.md` | GTM, channel strategy, seed approach |
 
 ## tasks/ — Claude Code handoff units
 
