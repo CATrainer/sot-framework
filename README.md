@@ -46,32 +46,27 @@ The system gets *better* as the product matures, not slower.
 
 ## Setup (once)
 
-Install the framework plugin (gives Claude Code the `sot-build` skill):
+Install the framework plugin — this gives Claude Code the `sot-build` skill *before* any
+product repo exists, which is what lets it stand a new product up for you:
 
 ```
-/plugin marketplace add YOUR_USERNAME/sot-framework
+/plugin marketplace add CATrainer/sot-framework
 /plugin install sot-framework
 ```
 
-Or just clone the templates — the skill rides along in the code template's `.claude/skills/`.
+And make sure the GitHub CLI is authenticated (`gh auth login`) — Claude Code uses it to
+create your product repos. That's the whole setup.
 
 ---
 
 ## Start a project
 
-**1. Make a product folder with both repos as siblings:**
+You don't pre-create any folders or repos — Claude Code does that from the templates. You just
+do the thinking in chat, then dump the result on Claude Code.
 
-```
-my-product/
-  my-product-sot/     ← clone the SoT template here
-  my-product-code/    ← clone the code template here
-```
-
-The sibling-folder convention is how the two repos find each other. (You can override the
-path in the code repo's `CLAUDE.md` if you want them elsewhere.)
-
-**2. Discover and walk (in chat).** Open a fresh Claude chat. Paste in the contents of
-`my-product-sot/framework/cold-start.md`, then describe your idea. Claude runs you through:
+**1. Discover and walk (in chat).** Open a fresh Claude chat. Paste in the contents of
+[`framework/cold-start.md`](framework/cold-start.md), then describe your idea. Claude runs you
+through:
 
 - **Discovery** — locks the *shape* (category, wedge, core loop, your one load-bearing bet).
 - **Foundation** — existing assets, your stack, local + prod deployment.
@@ -80,14 +75,16 @@ path in the code repo's `CLAUDE.md` if you want them elsewhere.)
 - **Spec emission** — writes it all down with no gaps, ordered by the fastest path to
   something you can actually look at.
 
-**3. Design (mid-conversation).** When prompted, take the design brief to Claude Design, pick
+**2. Design (mid-conversation).** When prompted, take the design brief to Claude Design, pick
 a direction, zip the project, and drop the zip back in the *same chat*. Claude extracts the
 real tokens into your spec.
 
-**4. Hand off to Claude Code.** Save the handoff file into your product folder, unzip the
-design project into `my-product-code/design-reference/`, then open Claude Code in the code
-folder and say: *"Set up the SoT repo from the handoff file, then build the first task."*
-The `sot-build` skill does the rest.
+**3. Hand off to Claude Code.** Chat emits a single **handoff file** (sections delimited by
+`# FILE:` lines). Download it, keep your design `.zip` next to it — any folder, no repos to
+create — open Claude Code there and say: *"Set up [Product] from these files and build the
+first task."* The `sot-build` skill asks where the repos should live, copies the templates into
+`[product]-sot` and `[product]-code`, populates them from the handoff and design, creates both
+repos on GitHub via `gh`, and builds task 001.
 
 ---
 

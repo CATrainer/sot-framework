@@ -200,8 +200,9 @@ Do not emit until every area is either complete or explicitly deferred with a re
 
 ### Emit the artifacts
 
-Produce a single **handoff file** (the user saves this into their project folder for Claude
-Code) containing, clearly sectioned:
+Produce a single **handoff file** the user hands to Claude Code. It is **one markdown file**
+in which each section is preceded by a `# FILE: <relative/path>` delimiter line, so Claude
+Code can split it deterministically into the SoT files. Emit, in this order:
 
 1. **`foundation.md`** — the irreducible core: thesis, the user, the wedge/surface, the
    distribution model, the load-bearing unconventional bet, and any cross-cutting
@@ -245,10 +246,16 @@ task or deferred.
 
 Tell them, plainly:
 
-> 1. Save this handoff file into your product folder.
-> 2. Unzip your Claude Design project into `[product]-code/design-reference/`.
-> 3. Open Claude Code in the `[product]-code` folder and say: "Set up the SoT repo from the
->    handoff file, then build the first task." The `sot-build` skill will take it from there.
+> 1. Download this handoff file and keep your Claude Design `.zip` next to it (any folder —
+>    your Downloads is fine; you don't pre-create any repos).
+> 2. Open Claude Code there and say: **"Set up [Product] from these files and build the first
+>    task."**
+>
+> The `sot-build` skill does the rest: it asks where you want the repos to live, copies the
+> templates into `[product]-sot` and `[product]-code`, populates them from the handoff and the
+> design zip, creates the two repos on GitHub via `gh`, and builds task 001. (One-time
+> prerequisites: install the framework plugin — `/plugin marketplace add CATrainer/sot-framework`
+> then `/plugin install sot-framework` — and have `gh` authenticated, `gh auth login`.)
 
 ---
 
