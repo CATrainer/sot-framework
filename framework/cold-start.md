@@ -202,7 +202,11 @@ Do not emit until every area is either complete or explicitly deferred with a re
 
 Produce a single **handoff file** the user hands to Claude Code. It is **one markdown file**
 in which each section is preceded by a `# FILE: <relative/path>` delimiter line, so Claude
-Code can split it deterministically into the SoT files.
+Code can split it deterministically into the SoT files. Use the **full relative path within
+the SoT repo** — e.g. `# FILE: foundation.md`, `# FILE: product/identity.md`,
+`# FILE: business/commitments.md`, `# FILE: design/direction.md`,
+`# FILE: tasks/open/001-host-creates-game.md` — so each section lands in the right folder
+with no inference.
 
 **Name the product — that's your job, not Claude Code's.** Begin the file with a header line:
 
