@@ -202,7 +202,19 @@ Do not emit until every area is either complete or explicitly deferred with a re
 
 Produce a single **handoff file** the user hands to Claude Code. It is **one markdown file**
 in which each section is preceded by a `# FILE: <relative/path>` delimiter line, so Claude
-Code can split it deterministically into the SoT files. Emit, in this order:
+Code can split it deterministically into the SoT files.
+
+**Name the product — that's your job, not Claude Code's.** Begin the file with a header line:
+
+```
+# PRODUCT: <Name> · slug: <kebab-case-slug>
+```
+
+You choose the name during discovery (don't leave it generic, and don't make the build infer
+it from a title). Claude Code uses the **slug** verbatim to name the two repos
+(`<slug>-sot`, `<slug>-code`) — so it never has to guess and the name can't drift.
+
+Then emit, in this order:
 
 1. **`foundation.md`** — the irreducible core: thesis, the user, the wedge/surface, the
    distribution model, the load-bearing unconventional bet, and any cross-cutting
@@ -244,18 +256,20 @@ task or deferred.
 
 ### Final handoff to the user
 
-Tell them, plainly:
+Tell them, plainly (this is a **new** product, so Claude Code starts in the code template):
 
-> 1. Download this handoff file and keep your Claude Design `.zip` next to it (any folder —
->    your Downloads is fine; you don't pre-create any repos).
-> 2. Open Claude Code there and say: **"Set up [Product] from these files and build the first
->    task."**
+> 1. Download this handoff file.
+> 2. Open Claude Code in your **`sot-framework-code`** template folder, **attach** this
+>    handoff file and your Claude Design `.zip` to the message, and say:
+>    **"Set up [Product] from these files and build the first task."**
 >
-> The `sot-build` skill does the rest: it asks where you want the repos to live, copies the
-> templates into `[product]-sot` and `[product]-code`, populates them from the handoff and the
-> design zip, creates the two repos on GitHub via `gh`, and builds task 001. (One-time
-> prerequisites: install the framework plugin — `/plugin marketplace add CATrainer/sot-framework`
-> then `/plugin install sot-framework` — and have `gh` authenticated, `gh auth login`.)
+> The `sot-build` skill does the rest: it copies the two templates into `[slug]-sot` and
+> `[slug]-code` (in a new `[slug]/` folder next to your templates), populates them from the
+> attached handoff and design zip, creates both repos on GitHub via `gh`, and builds task 001.
+> You don't pre-create any folders or repos.
+>
+> (One-time prerequisites, covered in the templates' `SETUP.md`: clone both template repos as
+> siblings, and run `gh auth login`.)
 
 ---
 

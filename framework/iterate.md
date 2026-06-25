@@ -1,9 +1,11 @@
 # Framework: Iterate (Add to an Existing Product)
 
-> **How to use this:** Paste this entire file into a fresh Claude chat. Either connect your
-> SoT repo via "Add from GitHub" (read-only is fine — you only need to read it) or paste in
-> the relevant area files. Then describe what you want to add or change. Claude will orient
-> against what already exists, walk the change, and emit a changeset you hand to Claude Code.
+> **How to use this:** Paste this entire file into a fresh Claude chat, then connect this chat
+> to your **product's SoT repo** — `<slug>-sot`, the live one, **not the template** — via "Add
+> from GitHub" (read-only is fine; you only need to read it), or paste in the relevant area
+> files. That repo is current truth; orienting against it is what stops the change from
+> contradicting a settled decision. Then describe what you want to add or change. Claude orients
+> against what already exists, walks the change, and emits a changeset you hand to Claude Code.
 
 ---
 
@@ -92,10 +94,15 @@ single handoff file containing:
 
 ### Final handoff to the user
 
-> 1. Save this changeset file into your product folder.
-> 2. Open Claude Code in the `[product]-code` folder and say: "Apply this changeset to the
->    SoT and build the task." The `sot-build` skill enforces the in-place edits, the index
->    update, and the writeback to both repos.
+This is an **existing** product, so Claude Code opens the product's own code repo (not the
+template — the repo already exists, skill and all):
+
+> 1. Download this changeset file.
+> 2. Open Claude Code in your **`<slug>-code`** repo, **attach** this changeset, and say:
+>    **"Apply this changeset and build the task."**
+>
+> The `sot-build` skill finds the paired `<slug>-sot` sibling, enforces the in-place edits, the
+> index update, and the writeback to both repos.
 
 ---
 

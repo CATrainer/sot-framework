@@ -46,16 +46,18 @@ The system gets *better* as the product matures, not slower.
 
 ## Setup (once)
 
-Install the framework plugin — this gives Claude Code the `sot-build` skill *before* any
-product repo exists, which is what lets it stand a new product up for you:
+Clone both templates as **siblings** in one folder, and authenticate the GitHub CLI. That's
+the whole setup — see [`SETUP.md`](SETUP.md) for the full walkthrough.
 
 ```
-/plugin marketplace add CATrainer/sot-framework
-/plugin install sot-framework
+gh repo clone CATrainer/sot-framework        # the SoT template (the brain)
+gh repo clone CATrainer/sot-framework-code   # the code template (carries the sot-build skill)
+gh auth login                                 # Claude Code uses gh to create your product repos
 ```
 
-And make sure the GitHub CLI is authenticated (`gh auth login`) — Claude Code uses it to
-create your product repos. That's the whole setup.
+You open Claude Code **in `sot-framework-code`** to start a product; the `sot-build` skill
+rides along in that repo and stands everything else up for you. (No need to pre-create product
+repos — the skill does it.)
 
 ---
 
@@ -79,21 +81,27 @@ through:
 a direction, zip the project, and drop the zip back in the *same chat*. Claude extracts the
 real tokens into your spec.
 
-**3. Hand off to Claude Code.** Chat emits a single **handoff file** (sections delimited by
-`# FILE:` lines). Download it, keep your design `.zip` next to it — any folder, no repos to
-create — open Claude Code there and say: *"Set up [Product] from these files and build the
-first task."* The `sot-build` skill asks where the repos should live, copies the templates into
-`[product]-sot` and `[product]-code`, populates them from the handoff and design, creates both
-repos on GitHub via `gh`, and builds task 001.
+**3. Hand off to Claude Code.** Chat emits a single **handoff file** (a `# PRODUCT:` header
+plus sections delimited by `# FILE:` lines). Download it, then open Claude Code **in your
+`sot-framework-code` template folder**, **attach** the handoff file and your design `.zip`, and
+say: *"Set up [Product] from these files and build the first task."* The `sot-build` skill
+copies both templates into a new `[slug]/` folder (`[slug]-sot` + `[slug]-code`) beside your
+templates, populates them from the attachments, creates both repos on GitHub via `gh`, and
+builds task 001.
 
 ---
 
 ## Iterate (forever after)
 
-Open a fresh chat, paste `framework/iterate.md`, connect or paste your SoT, and describe the
-change. Claude orients against what already exists (so it can't contradict a settled
-decision), walks the change, and emits a changeset. Hand it to Claude Code with *"Apply this
+Open a fresh chat, paste `framework/iterate.md`, and connect the chat to your **product's**
+`[slug]-sot` repo (the live one, not the template) so it orients against current truth. Describe
+the change; Claude walks it without contradicting a settled decision and emits a changeset. Then
+open Claude Code **in your `[slug]-code` repo**, attach the changeset, and say *"Apply this
 changeset and build the task."* In place, self-healing, both repos stay synced.
+
+**The pointing rule:** chat (thinking) always pairs with the **SoT** repo; Claude Code
+(building) always opens a **code** repo — the `sot-framework-code` template for a brand-new
+product, your `[slug]-code` repo for every change after.
 
 ---
 
